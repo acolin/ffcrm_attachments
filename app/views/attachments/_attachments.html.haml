@@ -7,8 +7,9 @@
       %table
         %tr
           %td
-            - if entity.attachments.present?
-              - entity.attachments.each do |attach|
+            - attachments = entity.attachments.select { |e| !e.id.nil? }
+            - unless attachments.empty?
+              - attachments.each do |attach|
                 .attach_block
                   = link_to attachment_preview(attach), download_attachment_path(attach), {title: attach.attachment_file_name}
                   .file_name= file_name(attach)
